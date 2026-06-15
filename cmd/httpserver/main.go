@@ -104,6 +104,8 @@ func chunkHandler(w *response.Writer, r *request.Request) {
 		herr.Write(w)
 		return
 	}
+	defer resp.Body.Close()
+
 	contentType := ""
 	if strings.HasPrefix(path, "/html") {
 		contentType = "text/html"
@@ -124,7 +126,7 @@ func chunkHandler(w *response.Writer, r *request.Request) {
 		return
 	}
 
-	fullBody := make([]byte, 1024)
+	var fullBody []byte
 	for {
 		buf := make([]byte, 1024)
 		n, err := resp.Body.Read(buf)
@@ -174,6 +176,7 @@ func binHandler(w *response.Writer, r *request.Request) {
 		w.WriteHeaders(h)
 		return
 	}
+	defer f.Close()
 
 	h.Set("Content-Type", "video/mp4")
 	h.Set("Transfer-Encoding", "chunked")

@@ -12,7 +12,7 @@ import (
 func main() {
 	listener, err := net.Listen("tcp", ":42069")
 	if err != nil {
-		slog.Error("Failed to listen for TCP connections", "addr", listener.Addr(), "error", err)
+		slog.Error("Failed to listen for TCP connections", "error", err)
 		return
 	}
 	defer listener.Close()
