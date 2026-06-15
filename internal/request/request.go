@@ -19,7 +19,7 @@ const (
 	requestStateDone
 )
 
-const bufferSize = 8
+const bufferSize = 8192
 
 type Request struct {
 	RequestLine  RequestLine
